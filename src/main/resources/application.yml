@@ -1,5 +1,6 @@
 server:
-  port: 8091
+  port: ${SERVER_PORT:8091}
+  forward-headers-strategy: framework
 
 spring:
   application:
@@ -8,18 +9,18 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8090/realms/digibnk
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8090/realms/digibnk}
 
 keycloak:
-  server-url: http://localhost:8090
-  realm: master
-  username: admin
-  password: admin
-  target-realm: digibnk
+  server-url: ${KEYCLOAK_SERVER_URL:http://localhost:8090}
+  realm: ${KEYCLOAK_ADMIN_REALM:master}
+  username: ${KEYCLOAK_ADMIN_USER:admin}
+  password: ${KEYCLOAK_ADMIN_PASSWORD:admin}
+  target-realm: ${KEYCLOAK_TARGET_REALM:digibnk}
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
   instance:
     preferIpAddress: true
